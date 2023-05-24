@@ -3,7 +3,7 @@ from utils import sigmoid, compute_std, linear
 from causalgraphicalmodels import StructuralCausalModel
 
 
-class GermanDataset:
+class SyntheticGermanDataset:
     """
     A semi-synthetic SCM based on the German Credit dataset
     (https://www.kaggle.com/datasets/uciml/german-credit)
