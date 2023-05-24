@@ -1,5 +1,6 @@
 import numpy as np
 from utils import sigmoid, compute_std, linear
+from causalgraphicalmodels import StructuralCausalModel
 
 
 class GermanDataset:
@@ -26,6 +27,7 @@ class GermanDataset:
             col = 'c_' + col
             setattr(self, col, 1)
         self.proper_std = {}
+        self.scm = None
 
     def f_G(self):
         np.random.seed(self.seed)
@@ -58,8 +60,8 @@ class GermanDataset:
         arr = [k_G * self.c_G, k_A * self.c_A, k_E * self.c_E, g_N * self.rf]
         l2norm = np.linalg.norm(arr)
         self.proper_std["J"] = compute_std(self.rf * g_N, l2norm)
-        return activation(k_G * self.c_G * G + k_A * self.c_A * A + k_E * self.c_E * E +
-                          np.random.normal(0, self.rf * g_N, size=self.n_samples), scale=l2norm)
+        return self.activation(k_G * self.c_G * G + k_A * self.c_A * A + k_E * self.c_E * E +
+                               np.random.normal(0, self.rf * g_N, size=self.n_samples), scale=l2norm)
 
     def f_L(self, A, G):
         np.random.seed(self.seed + 4)
@@ -70,9 +72,9 @@ class GermanDataset:
 
         arr = [k_A * self.c_A, k_G * self.c_G, self.rf * g_N]
         l2norm = np.linalg.norm(arr)
-        self.proper_std["L"] = compute_std(rf * g_N, l2norm)
-        return activation(k_A * self.c_A * A + k_G * self.c_G * G +
-                          np.random.normal(0, self.rf * g_N, size=n_samples), scale=l2norm)
+        self.proper_std["L"] = compute_std(self.rf * g_N, l2norm)
+        return self.activation(k_A * self.c_A * A + k_G * self.c_G * G +
+                               np.random.normal(0, self.rf * g_N, size=self.n_samples), scale=l2norm)
 
     def f_D(self, G, A, L):
         np.random.seed(self.seed + 5)
@@ -84,10 +86,10 @@ class GermanDataset:
 
         arr = [k_G * self.c_G, k_A * self.c_A, k_L * self.c_L, g_N * self.rf]
         l2norm = np.linalg.norm(arr)
-        self.proper_std["D"] = compute_std(rf * g_N, l2norm)
-        return activation(k_A * self.c_A * A + k_G * self.c_G * G + k_L * self.c_L *
-                          L + np.random.normal(0, self.rf * g_N, size=self.n_samples),
-                          scale=l2norm)
+        self.proper_std["D"] = compute_std(self.rf * g_N, l2norm)
+        return self.activation(k_A * self.c_A * A + k_G * self.c_G * G + k_L * self.c_L *
+                               L + np.random.normal(0, self.rf * g_N, size=self.n_samples),
+                               scale=l2norm)
 
     def f_I(self, G, A, E, J):
         np.random.seed(self.seed + 6)
@@ -100,7 +102,7 @@ class GermanDataset:
         arr = [k_G * self.c_G, k_J * self.c_J, k_E * self.c_E, k_A * self.c_A, self.rf * g_N]
         l2norm = np.linalg.norm(arr)
         self.proper_std["I"] = compute_std(self.rf * g_N, l2norm)
-        return activation(
+        return self.activation(
             k_A * self.c_A * A + k_G * self.c_G * G + k_J * self.c_J * J + k_E * self.c_E * E +
             np.random.normal(0, self.rf * g_N, size=self.n_samples),
             scale=l2norm)
@@ -112,7 +114,8 @@ class GermanDataset:
         arr = [k_I * self.c_I, g_N * self.rf]
         l2norm = np.linalg.norm(arr)
         self.proper_std["S"] = compute_std(self.rf * g_N, l2norm)
-        return activation(k_I * self.c_I * I + np.random.normal(0, self.rf * g_N, size=self.n_samples), scale=l2norm)
+        return self.activation(k_I * self.c_I * I + np.random.normal(0, self.rf * g_N, size=self.n_samples),
+                               scale=l2norm)
 
     def f_Y(self, I, S, L, D):
         np.random.seed(self.seed + 8)
@@ -125,7 +128,8 @@ class GermanDataset:
         arr = [k_I * self.c_I, k_S * self.c_S, k_L * self.c_L, k_D * self.c_D]
         l2norm = np.linalg.norm(arr)
         self.proper_std["Y"] = 0.3
-        return sigmoid((k_I * self.c_I * I + k_S * self.c_S * S + k_L * self.c_L * L + k_D * self.c_D * D), scale=l2norm)
+        return sigmoid((k_I * self.c_I * I + k_S * self.c_S * S + k_L * self.c_L * L + k_D * self.c_D * D),
+                       scale=l2norm)
 
     def data(self):
         structural_equations = {
@@ -148,5 +152,8 @@ class GermanDataset:
             # Outcome
             'Y': self.f_Y,
         }
+        self.scm = StructuralCausalModel(structural_equations)
+        return self.scm.sample(n_samples=self.n_samples).astype(float)
 
-        return structural_equations
+    def get_ground_truth(self):
+        return self.scm.cgm.draw()
