@@ -5,7 +5,7 @@ we motivate **the need to integrate the temporal dimension into causal algorithm
 
 # Quick Start
 
-Example: [TIME-CAR](https://github.com/marti5ini/time-car/blob/master/time-car.ipynb)
+You can utilize the following Jupyter Notebook to observe the results presented in the paper: [TIME-CAR](https://github.com/marti5ini/time-car/blob/master/time-car.ipynb)
 
 
 # Setup
