@@ -3,6 +3,12 @@
 This repository contains the implementation of the work [The Importance of Time in Causal Algorithmic Recourse](https://) in which 
 we motivate **the need to integrate the temporal dimension into causal algorithmic recourse methods** to enhance recommendations’ **plausibility and reliability**. 
 
+# Tutorial
+
+For example usage of: 
+
+* [TIME-CAR]([https://github.com/marti5ini/GENCDA/blob/master/tutorials/ncda.ipynb](https://github.com/marti5ini/time-car/blob/master/time-car.ipynb)
+
 
 # Setup
 
