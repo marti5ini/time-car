@@ -5,7 +5,6 @@ A semi-synthetic SCM based on the German Credit dataset
 
 import numpy as np
 from utils import sigmoid, compute_std, linear
-from causalgraphicalmodels import StructuralCausalModel
 
 
 # random factor - controls the randomness of the model
