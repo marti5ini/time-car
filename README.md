@@ -10,7 +10,7 @@ You can utilize the following Jupyter Notebook to observe the results presented 
 
 # Setup
 
-The packages requires a python version >=3.9, as well as some libraries listed in requirements file. For some additional functionalities, more libraries are needed for these extra functions and options to become available. 
+The code requires a python version >=3.9, as well as some libraries listed in requirements file. For some additional functionalities, more libraries are needed for these extra functions and options to become available. 
 
 ```
 git clone https://github.com/marti5ini/time-car.git
