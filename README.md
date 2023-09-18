@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 # Citation
 
-If you use 'TIME-CAR' in your research, please cite our paper:
+If you use `time-car` in your research, please cite our paper:
 
 ```
 @article{beretta2023importance,
