@@ -8,7 +8,7 @@ we motivate **the need to integrate the temporal dimension into causal algorithm
 
 You can utilize the following Jupyter Notebook to reproduce the results presented in the paper: 
 
-*[TIME-CAR](https://github.com/marti5ini/time-car/blob/master/time-car.ipynb)
+* [TIME-CAR](https://github.com/marti5ini/time-car/blob/master/time-car.ipynb)
 
 
 # Setup
