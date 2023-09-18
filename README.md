@@ -25,7 +25,9 @@ python3 -m venv ./venv # optional but recommended
 pip install -r requirements.txt
 ```
 
-# Citing this work
+# Citation
+
+If you use 'TIME-CAR' in your research, please cite our paper:
 
 ```
 @article{beretta2023importance,
@@ -34,5 +36,3 @@ pip install -r requirements.txt
   journal={arXiv preprint arXiv:2306.05082},
   year={2023}
 }
-
-
