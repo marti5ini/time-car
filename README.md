@@ -25,4 +25,14 @@ python3 -m venv ./venv # optional but recommended
 pip install -r requirements.txt
 ```
 
+# Citing this work
+
+```
+@article{beretta2023importance,
+  title={The Importance of Time in Causal Algorithmic Recourse},
+  author={Beretta, Isacco and Cinquini, Martina},
+  journal={arXiv preprint arXiv:2306.05082},
+  year={2023}
+}
+
 
