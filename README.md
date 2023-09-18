@@ -1,5 +1,7 @@
 # The importance of Time in Causal Algorithmic Recourse
 
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](https://pypi.org/project/biasondemand) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 This repository contains the implementation of the work [The Importance of Time in Causal Algorithmic Recourse](https://) in which 
 we motivate **the need to integrate the temporal dimension into causal algorithmic recourse methods** to enhance recommendations’ **plausibility and reliability**. 
 
